@@ -45,11 +45,11 @@ fn CTR(){
     print!("{:?}\n\n",plain_text);
     let datalen=plain_text.len();
 
-    cipher.ctr_encrypt_inplace(&mut plain_text,&iv,datalen);
+    cipher.tctr_encrypt_inplace(&mut plain_text,&iv,datalen);
     print!("3{:?}\n\n",plain_text);
  //   print!("{:?}\n",String::from_utf8(cipher_text.clone()).unwrap());
 // Decryption
-    cipher.ctr_encrypt_inplace(&mut plain_text,&iv, datalen);
+    cipher.tctr_encrypt_inplace(&mut plain_text,&iv, datalen);
     println!("\n{:?}\n",plain_text);
 
 }
@@ -67,12 +67,12 @@ pub fn testCtrin(round:u64){
     let mut total:u128=rounds.into();
     while rounds>  0{
         let mut now = SystemTime::now();
-        cipher.ctr_encrypt_inplace(&mut round_time, &iv, 1000000);
+        cipher.tctr_encrypt_inplace(&mut round_time, &iv, 1000000);
      //   let mut past=now.elapsed();
         encTime+=now.elapsed().unwrap().as_millis();
 
          now =SystemTime::now();
-        cipher.ctr_encrypt_inplace(& mut round_time, &iv, 1000000);
+        cipher.tctr_encrypt_inplace(& mut round_time, &iv, 1000000);
        // past=now.elapsed();
 
         decTime+=now.elapsed().unwrap().as_millis();
@@ -105,7 +105,7 @@ pub fn testcfbin(round:u64){
         encTime+=now.elapsed().unwrap().as_millis();
 
          now =SystemTime::now();
-        cipher.cfb_encrypt_inplace(& mut round_time, &iv, 1000000);
+        cipher.cfb_decrypt_inplace(& mut round_time, &iv, 1000000);
        // past=now.elapsed();
 
         decTime+=now.elapsed().unwrap().as_millis();
@@ -121,8 +121,10 @@ pub fn testcfbin(round:u64){
    
 fn main() {
      
-    testCtrin( 10);
-    testcfbin(10); 
+   // testCtrin( 1);
+  //  testcfbin(1); 
+ // CTR();
+ testCtrin(1);
 
 }
 
